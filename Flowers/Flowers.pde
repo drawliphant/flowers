@@ -68,7 +68,7 @@ PVector point2=new PVector(0,0);
 void setup(){
   size(750,400);
   colorMode(HSB,100);
- 
+  shapeMode(CENTER);
   pedals[0]=loadShape("p0.svg");
   pedals[0].disableStyle();
   pedals[1]=loadShape("p1.svg");
@@ -108,12 +108,13 @@ void draw(){
     noStroke();
     fill(g[i][0],100,g[i][1]);
     strokeWeight(1);
+    pedals[int(g[i][3])].rotate(2*PI/4);
     for(int j=0; j<g[i][3];j++){
-      shape(pedals[int(g[i][3])],point.x,point.y,30,90);
+      shape(pedals[int(g[i][3])],point.x+cos(2*j*PI/g[i][8])*g[i][6],point.y+sin(2*j*PI/g[i][8])*g[i][6],30,90);
       pedals[int(g[i][3])].rotate(2*PI/g[i][8]);
       
     }
-    
+    pedals[int(g[i][3])].resetMatrix();
     fill(g[i][4],100,g[i][5]);
     stroke(g[i][0],100,g[i][1]);
     ellipse(point.x,point.y,g[i][6],g[i][6]);
