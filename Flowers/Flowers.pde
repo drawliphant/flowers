@@ -3,8 +3,8 @@ boolean randBool(){
 }
 float wheel(float color1,float color2){
  
- float colorn=random(-10,10);
- return ((color1+color2+colorn)%360)/2;
+ float colorn=random(-20,20);
+ return ((color1+color2+colorn)%100)/2;
 }
 float[] seed(float[] s){
   s[0]=random(0,100);//pedal hue
@@ -68,7 +68,7 @@ PVector point2=new PVector(0,0);
 void setup(){
   size(750,400);
   colorMode(HSB,100);
-  shapeMode(CENTER);
+  
   pedals[0]=loadShape("p0.svg");
   pedals[0].disableStyle();
   pedals[1]=loadShape("p1.svg");
@@ -82,7 +82,7 @@ void setup(){
 }
 void draw(){
   background(47,61,65);
-  
+  shapeMode(CORNER);
   fill(5,60,32);
   noStroke();
   rect(0,height-100,width,100);
@@ -109,9 +109,10 @@ void draw(){
     fill(g[i][0],100,g[i][1]);
     strokeWeight(1);
     pedals[int(g[i][3])].rotate(2*PI/4);
+    pedals[int(g[i][3])].scale(g[i][6]/5,g[i][2]/5);
     for(int j=0; j<g[i][3];j++){
-      shape(pedals[int(g[i][3])],point.x+cos(2*j*PI/g[i][8])*g[i][6],point.y+sin(2*j*PI/g[i][8])*g[i][6],30,90);
-      pedals[int(g[i][3])].rotate(2*PI/g[i][8]);
+      shape(pedals[int(g[i][3])],point.x/*+cos(2*j*PI/g[i][8])*(g[i][6]+g[i][2])*/,point.y/*+sin(2*j*PI/g[i][8])*(g[i][6]+g[i][2])*/,g[i][2],g[i][2]);
+      pedals[int(g[i][3])].rotate(j*PI/g[i][8]);
       
     }
     pedals[int(g[i][3])].resetMatrix();
